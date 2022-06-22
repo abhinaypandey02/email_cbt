@@ -2,6 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
 import 'dotenv/config';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import https from 'https';
+import fs from 'fs';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const options = {
+    key: fs.readFileSync(__dirname + '/private.key', 'utf8'),
+    cert: fs.readFileSync(__dirname + '/public.cert', 'utf8')
+};
 const app = express()
 app.use(express.json())
 app.use(cors({
@@ -47,4 +57,4 @@ app.post('/email', async (req, res) => {
     }
 
 })
-app.listen(1234)
+https.createServer(options, app).listen(process.env.PORT);
