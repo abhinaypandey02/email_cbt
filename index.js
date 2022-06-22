@@ -28,7 +28,7 @@ const transporter = nodemailer.createTransport({
 });
 app.post('/email', async (req, res) => {
     const data = req.body;
-    if(!data.name||!data.email||!data.countryCode||!data.location||!data.phone||!data.subject||!data.message){
+    if(!data.name||!data.email||!data.countryCode||!data.location||!data.phone||!data.message){
         res.sendStatus(400);
         return;
     }
