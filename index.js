@@ -45,7 +45,7 @@ app.post('/email', async (req, res) => {
     try{
         await transporter.sendMail({
             from: '"Webmaster CBT Proxy" <webmaster@cbtproxy.com>',
-            to: "info@examremote.com",
+            to: "info@cbtproxy.com",
             subject: "Form Submission on CBT Proxy",
             text,
             html
