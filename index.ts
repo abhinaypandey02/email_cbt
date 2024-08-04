@@ -16,11 +16,11 @@ const options = {
     cert: fs.readFileSync(__dirname + '/certificate.crt', 'utf8')
 };
 const app = express()
-app.use(express.json())
 app.use(cors({
     origin: '*'
 }))
+app.post('/stripe-webhook', handleStripeWebhook)
+app.use(express.json())
 app.post('/stripe-checkout', handleStripeCheckout)
-app.post('/stripe-webhook', express.raw({ type: 'application/json' }), handleStripeWebhook)
 app.post('/email', handleEmail)
 createServer(options,app).listen(process.env.PORT);
