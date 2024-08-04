@@ -26,6 +26,37 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASSWORD, // generated ethereal password
     },
 });
+app.post('/email-voucher', async (req, res) => {
+    const data = req.body;
+    if(!data.couponID||!data.email){
+        res.sendStatus(400);
+        return;
+    }
+
+    const text = `The following coupon has been purchased :\n
+        COUPON ID: ${data.couponID}
+    `
+    try{
+        await transporter.sendMail({
+            from: '"Webmaster CBT Proxy" <webmaster@cbtproxy.com>',
+            to: "info@examremote.com",
+            subject: "Coupon purchased on CBT Proxy",
+            text,
+        });
+
+        await transporter.sendMail({
+            from: '"Webmaster CBT Proxy" <webmaster@cbtproxy.com>',
+            to: data.email,
+            subject: "Coupon purchased on CBT Proxy",
+            text,
+        });
+        res.sendStatus(200);
+    } catch (e) {
+        console.error(e)
+        res.sendStatus(500);
+    }
+
+})
 app.post('/email', async (req, res) => {
     const data = req.body;
     if(!data.name||!data.email||!data.countryCode||!data.location||!data.phone||!data.message){
