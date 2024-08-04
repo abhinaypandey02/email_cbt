@@ -19,7 +19,7 @@ const app = express()
 app.use(cors({
     origin: '*'
 }))
-app.post('/stripe-webhook', handleStripeWebhook)
+app.post('/stripe-webhook', express.raw({ type: 'application/json' }), handleStripeWebhook)
 app.use(express.json())
 app.post('/stripe-checkout', handleStripeCheckout)
 app.post('/email', handleEmail)
