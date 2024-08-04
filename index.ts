@@ -21,6 +21,6 @@ app.use(cors({
     origin: '*'
 }))
 app.post('/stripe-checkout', handleStrapiCheckout)
-app.post('/stripe-webhook', handleStrapiWebhook)
+app.post('/stripe-webhook', express.raw({ type: 'application/json' }), handleStrapiWebhook)
 app.post('/email', handleEmail)
 createServer(options,app).listen(process.env.PORT);
