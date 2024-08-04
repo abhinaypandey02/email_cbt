@@ -2,7 +2,7 @@ import {RequestHandler} from "express";
 import axios from "axios";
 import getStripe from "../stripe";
 
-export const handleStrapiCheckout:RequestHandler=async (req,res)=>{
+export const handleStripeCheckout:RequestHandler=async (req,res)=>{
     const data = req.body
     if (!data.couponID) return res.status(400).send({})
     const {

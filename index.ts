@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { createServer } from 'https';
 import {handleEmail} from "./routes/email";
-import {handleStrapiCheckout} from "./routes/strapi-checkout";
-import {handleStrapiWebhook} from "./routes/strapi-webhook";
+import {handleStripeCheckout} from "./routes/stripe-checkout";
+import {handleStripeWebhook} from "./routes/stripe-webhook";
 import * as fs from "node:fs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(cors({
     origin: '*'
 }))
-app.post('/stripe-checkout', handleStrapiCheckout)
-app.post('/stripe-webhook', express.raw({ type: 'application/json' }), handleStrapiWebhook)
+app.post('/stripe-checkout', handleStripeCheckout)
+app.post('/stripe-webhook', express.raw({ type: 'application/json' }), handleStripeWebhook)
 app.post('/email', handleEmail)
 createServer(options,app).listen(process.env.PORT);

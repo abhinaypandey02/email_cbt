@@ -3,7 +3,7 @@ import axios from "axios";
 import getStripe from "../stripe";
 import {Nodemailer} from "../email-transport";
 
-export const handleStrapiWebhook:RequestHandler=async (req,res)=>{
+export const handleStripeWebhook:RequestHandler=async (req,res)=>{
     const payload = req.body
     const sig = req.headers['stripe-signature']
     let event
