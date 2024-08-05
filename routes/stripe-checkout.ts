@@ -11,6 +11,7 @@ export const handleStripeCheckout:RequestHandler=async (req,res)=>{
         process.env.GATSBY_STRAPI_LOCAL_ENDPOINT + ':1337/api/coupons/' + data.couponID + '?populate=image'
     )
     if (couponResData.id !== data.couponID) return res.status(404).send({})
+    if (couponResData.attributes.count < 1) return res.status(400).send({})
     const image = couponResData.attributes.image?.data?.attributes.formats?.thumbnail?.url
     const coupon = couponResData.attributes
     const payment = getStripe()
