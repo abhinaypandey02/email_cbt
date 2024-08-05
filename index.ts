@@ -24,5 +24,5 @@ app.post('/stripe-webhook', express.raw({ type: 'application/json' }), handleStr
 app.use(express.json())
 app.post('/stripe-checkout', handleStripeCheckout)
 app.post('/email', handleEmail)
-app.post('/vouchers', handleVouchers)
+app.get('/vouchers', handleVouchers)
 createServer(options,app).listen(process.env.PORT);
