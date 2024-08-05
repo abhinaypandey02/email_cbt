@@ -8,6 +8,7 @@ import {handleEmail} from "./routes/email";
 import {handleStripeCheckout} from "./routes/stripe-checkout";
 import {handleStripeWebhook} from "./routes/stripe-webhook";
 import * as fs from "node:fs";
+import {handleVouchers} from "./routes/vouchers";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,4 +24,5 @@ app.post('/stripe-webhook', express.raw({ type: 'application/json' }), handleStr
 app.use(express.json())
 app.post('/stripe-checkout', handleStripeCheckout)
 app.post('/email', handleEmail)
+app.post('/vouchers', handleVouchers)
 createServer(options,app).listen(process.env.PORT);
