@@ -8,7 +8,7 @@ export const handleStripeCheckout:RequestHandler=async (req,res)=>{
     const {
         data: { data: couponResData },
     } = await axios.get(
-        process.env.GATSBY_STRAPI_ENDPOINT + ':1337/api/coupons/' + data.couponID + '?populate=image'
+        process.env.GATSBY_STRAPI_LOCAL_ENDPOINT + ':1337/api/coupons/' + data.couponID + '?populate=image'
     )
     if (couponResData.id !== data.couponID) return res.status(404).send({})
     const image = couponResData.attributes.image?.data?.attributes.formats?.thumbnail?.url
@@ -21,7 +21,7 @@ export const handleStripeCheckout:RequestHandler=async (req,res)=>{
                     unit_amount: coupon.finalPrice * 100,
                     product_data: {
                         name: 'Coupon for ' + coupon.examCode,
-                        images: image ? [process.env.GATSBY_STRAPI_ENDPOINT + ':1337' + image] : [],
+                        images: image ? [process.env.GATSBY_STRAPI_LIVE_ENDPOINT + ':1337' + image] : [],
                         description: coupon.validCountries,
                     },
                     currency: 'USD',

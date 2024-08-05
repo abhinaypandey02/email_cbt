@@ -23,7 +23,7 @@ export const handleStripeWebhook:RequestHandler=async (req,res)=>{
                 const { couponID } = checkoutSessionCompleted.metadata
                 const {
                     data: { data: couponResData },
-                } = await axios.get(process.env.GATSBY_STRAPI_ENDPOINT + ':1337/api/coupons/' + couponID)
+                } = await axios.get(process.env.GATSBY_STRAPI_LOCAL_ENDPOINT + ':1337/api/coupons/' + couponID)
                 const text = `The following coupon has been purchased :\n
         COUPON ID: ${couponResData.attributes.couponID}
     `
