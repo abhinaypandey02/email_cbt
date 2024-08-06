@@ -12,6 +12,7 @@ export const handleEmail:RequestHandler=async (req, res) => {
         Name: ${data.name}\n
         Email: ${data.email}\n
         Phone: ${data.countryCode} ${data.phone}\n
+        Whatsapp: https://wa.me/${data.countryCode}${data.phone}\n
         Location: ${data.location}\n
         Subject: ${data.subject}\n
         Message: ${data.message}

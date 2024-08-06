@@ -56,7 +56,6 @@ export const handleStripeWebhook:RequestHandler=async (req,res)=>{
                     console.error(e)
                     return res.status(500).send({error: e});
                 }
-                break
             }
         }
     }
