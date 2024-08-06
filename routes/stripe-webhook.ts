@@ -51,15 +51,14 @@ export const handleStripeWebhook:RequestHandler=async (req,res)=>{
                         subject: "Coupon purchased on CBT Proxy",
                         text,
                     });
-                    res.sendStatus(200);
+                    return res.sendStatus(200);
                 } catch (e) {
                     console.error(e)
-                    res.sendStatus(500);
+                    return res.status(500).send({error: e});
                 }
                 break
             }
         }
-        return res.status(200).send({})
     }
-    return res.status(400).send({})
+    return res.sendStatus(500)
 }
