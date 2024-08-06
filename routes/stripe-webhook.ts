@@ -29,6 +29,10 @@ export const handleStripeWebhook:RequestHandler=async (req,res)=>{
                     "data":{
                         "count":couponResData.attributes.count-1
                     }
+                },{
+                    headers:{
+                        "Authorization": `Bearer ${process.env.GATSBY_STRAPI_TOKEN}`
+                    }
                 })
                 const text = `The following coupon has been purchased :\n
         COUPON ID: ${couponResData.attributes.couponID}
