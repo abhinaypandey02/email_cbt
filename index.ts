@@ -14,7 +14,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const options = {
     key: fs.readFileSync(__dirname + '/private.key', 'utf8'),
-    cert: fs.readFileSync(__dirname + '/certificate.crt', 'utf8')
+    cert: fs.readFileSync(__dirname + '/certificate.crt', 'utf8'),
+    ca: [
+        fs.readFileSync(__dirname + '/chained1.crt', 'utf8'),
+        fs.readFileSync(__dirname + '/chained2.crt', 'utf8')
+    ]
 };
 const app = express()
 app.use(cors({
