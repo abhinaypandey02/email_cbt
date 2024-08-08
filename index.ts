@@ -21,6 +21,7 @@ const options = {
     ]
 };
 const app = express()
+app.use(express.static('~/cms/public'))
 app.use(cors({
     origin: '*'
 }))
