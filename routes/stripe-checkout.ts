@@ -30,6 +30,9 @@ export const handleStripeCheckout:RequestHandler=async (req,res)=>{
                 quantity: 1,
             },
         ],
+        consent_collection:{
+          terms_of_service:'required',  
+        },
         custom_text:{
             terms_of_service_acceptance:{
                 message: "IMPORTANT: After purchase, you will receive your exam voucher via email within one business day. The voucher will be sent to the email you specify at the time of purchase. please do register for your exam right after receiving the voucher number. You may reschedule your exam prior to the expiration date as long as you follow the voucher vendor's regulation.",
