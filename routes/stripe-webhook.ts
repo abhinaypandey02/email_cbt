@@ -36,6 +36,7 @@ export const handleStripeWebhook:RequestHandler=async (req,res)=>{
                 })
                 const text = `The following coupon has been purchased :\n
         COUPON ID: ${couponResData.attributes.couponID}
+        EXAM ID: ${couponResData.attributes.examID}
     `
                 try{
                     await Nodemailer.sendMail({
@@ -48,8 +49,55 @@ export const handleStripeWebhook:RequestHandler=async (req,res)=>{
                     await Nodemailer.sendMail({
                         from: '"Webmaster CBT Proxy" <webmaster@cbtproxy.com>',
                         to: checkoutSessionCompleted.customer_details.email,
-                        subject: "Coupon purchased on CBT Proxy",
-                        text,
+                        subject: "Thank You for Your Purchase! Choose How to Apply Your Exam Voucher",
+                        text:`
+                            Dear ${checkoutSessionCompleted.customer_details.email},
+
+                            Thank you for purchasing the ${couponResData.attributes.examCode} exam voucher with us! We’re thrilled to assist you in your certification journey.
+                            
+                            To ensure the best experience, please choose one of the following options for applying your voucher:
+                            
+                            Option 1 (Preferred): We Apply it For You, With a 100% Guarantee
+                            For total peace of mind, you can grant us remote access, and we will apply the voucher and schedule your exam for a future date. This option comes with a 100% guarantee that your voucher will work. You can reschedule the exam later if needed.
+                            
+                            Option 2: Apply it Yourself, With No Guarantee
+                            If you prefer to handle it yourself, we’ll send the voucher via email. Please note that this option is non-refundable. As the voucher is a non-tangible item, it cannot be refunded if it doesn't work.
+                            
+                            Please reply to this email with your preferred option, and we will proceed accordingly.
+                            
+                            Want to Pass Your Exam with a 100% Guarantee?
+                            Don’t forget to check out our Proxy Exam Help service, where we offer a guaranteed pass with the option to pay after you succeed. Learn more here: Pass Your Exam with CBTProxy
+                            
+                            Thank you for choosing us for your exam preparation needs. We look forward to hearing from you soon!
+                            
+                            Best regards,  
+                            Voucher Store
+                            CBTProxy
+                        `,
+                        html:`
+                            Dear ${checkoutSessionCompleted.customer_details.email},
+
+                            Thank you for purchasing the ${couponResData.attributes.examCode} exam voucher with us! We’re thrilled to assist you in your certification journey.
+                            
+                            To ensure the best experience, please choose one of the following options for applying your voucher:
+                            
+                            <em>Option 1 (Preferred): We Apply it For You, With a 100% Guarantee</em>
+                            For total peace of mind, you can grant us remote access, and we will apply the voucher and schedule your exam for a future date. This option comes with a 100% guarantee that your voucher will work. You can reschedule the exam later if needed.
+                            
+                            <em>Option 2: Apply it Yourself, With No Guarantee</em>
+                            If you prefer to handle it yourself, we’ll send the voucher via email. Please note that this option is non-refundable. As the voucher is a non-tangible item, it cannot be refunded if it doesn't work.
+                            
+                            Please reply to this email with your preferred option, and we will proceed accordingly.
+                            
+                            <em>Want to Pass Your Exam with a 100% Guarantee?</em>
+                            Don’t forget to check out our Proxy Exam Help service, where we offer a guaranteed pass with the option to pay after you succeed. Learn more here: <a href="https://cbtproxy.com/cbt-landing">Pass Your Exam with CBTProxy</a>
+                            
+                            Thank you for choosing us for your exam preparation needs. We look forward to hearing from you soon!
+                            
+                            Best regards,  
+                            Voucher Store
+                            CBTProxy
+                        `,
                     });
                     return res.sendStatus(200);
                 } catch (e) {
