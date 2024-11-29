@@ -2,6 +2,7 @@ import {RequestHandler} from "express";
 import axios from "axios";
 import getStripe from "../stripe";
 import {Nodemailer} from "../email-transport";
+import {getCoupon} from "./utils";
 
 export const handleStripeWebhook:RequestHandler=async (req,res)=>{
     const payload = req.body
@@ -10,8 +11,8 @@ export const handleStripeWebhook:RequestHandler=async (req,res)=>{
 
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
     if (sig) {
+        const payment = getStripe()
         try {
-            const payment = getStripe()
             event = payment.webhooks.constructEvent(payload, sig, endpointSecret)
         } catch (error) {
             console.error(error)
@@ -21,10 +22,13 @@ export const handleStripeWebhook:RequestHandler=async (req,res)=>{
             case 'checkout.session.completed': {
                 const checkoutSessionCompleted = event.data.object as any
                 const { couponID } = checkoutSessionCompleted.metadata
-                const {
-                    data: { data: couponResData },
-                } = await axios.get(process.env.GATSBY_STRAPI_LOCAL_ENDPOINT + ':1337/api/coupons/' + couponID)
-
+                const couponResData = await getCoupon(couponID)
+                if(!couponResData) {
+                    await payment.refunds.create({
+                        payment_intent: checkoutSessionCompleted.payment_intent
+                    })
+                    return res.sendStatus(204);
+                }
                 await axios.put(process.env.GATSBY_STRAPI_LOCAL_ENDPOINT + ':1337/api/coupons/' + couponID,{
                     "data":{
                         "count":couponResData.attributes.count-1

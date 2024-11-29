@@ -1,15 +1,12 @@
 import {RequestHandler} from "express";
 import axios from "axios";
 import getStripe from "../stripe";
+import {getCoupon} from "./utils";
 
 export const handleStripeCheckout:RequestHandler=async (req,res)=>{
     const data = req.body
     if (!data.couponID) return res.status(400).send({})
-    const {
-        data: { data: couponResData },
-    } = await axios.get(
-        process.env.GATSBY_STRAPI_LOCAL_ENDPOINT + ':1337/api/coupons/' + data.couponID + '?populate=image'
-    )
+    const couponResData = await getCoupon(data.couponID)
     if (couponResData.id !== data.couponID) return res.status(404).send({})
     if (couponResData.attributes.count < 1) return res.status(400).send({})
     const image = couponResData.attributes.image?.data?.attributes.formats?.thumbnail?.url
@@ -40,6 +37,7 @@ export const handleStripeCheckout:RequestHandler=async (req,res)=>{
         },
         metadata: {
             couponID: couponResData.id,
+            test: "TEST"
         },
         invoice_creation: {
             enabled: true,
