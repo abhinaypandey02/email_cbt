@@ -24,9 +24,9 @@ export const handleStripeWebhook:RequestHandler=async (req,res)=>{
                 const { couponID } = checkoutSessionCompleted.metadata
                 const couponResData = await getCoupon(couponID)
                 if(!couponResData) {
-                    await payment.refunds.create({
-                        payment_intent: checkoutSessionCompleted.payment_intent
-                    })
+                    // await payment.refunds.create({
+                    //     payment_intent: checkoutSessionCompleted.payment_intent
+                    // })
                     return res.sendStatus(204);
                 }
                 await axios.put(process.env.GATSBY_STRAPI_LOCAL_ENDPOINT + ':1337/api/coupons/' + couponID,{
