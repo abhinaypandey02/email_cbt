@@ -17,7 +17,7 @@ export const handleEmail:RequestHandler=async (req, res) => {
         Subject: ${data.subject}\n
         Message: ${data.message}
     `
-    const html = `<div><h1>The following information has been received on the website form:</h1><table style="font-size: 18px"><tr><td style="padding: 10px"><b>Name</b></td><td>${data.name}</td></tr><tr><td style="padding: 10px"><b>Email</b></td><td>${data.email}</td></tr><tr><td style="padding: 10px"><b>Phone</b></td><td>${data.countryCode} ${data.phone}</td></tr><tr><td style="padding: 10px"><b >Location</b></td><td>${data.location}</td></tr><tr><td style="padding: 10px"><b>Subject</b></td><td>${data.subject}</td></tr><tr><td style="padding: 10px"><b >Message</b></td><td>${data.message}</td></tr></table></div>`
+    const html = `<div><h1>The following information has been received on the website form:</h1><table style="font-size: 18px"><tr><td style="padding: 10px"><b>Name</b></td><td>${data.name}</td></tr><tr><td style="padding: 10px"><b>Email</b></td><td>${data.email}</td></tr><tr><td style="padding: 10px"><b>Phone</b></td><td><a target="_blank" href="https://wa.me/${data.countryCode}${data.phone}">${data.countryCode} ${data.phone}</a></td></tr><tr><td style="padding: 10px"><b >Location</b></td><td>${data.location}</td></tr><tr><td style="padding: 10px"><b>Subject</b></td><td>${data.subject}</td></tr><tr><td style="padding: 10px"><b >Message</b></td><td>${data.message}</td></tr></table></div>`
     try{
         await Nodemailer.sendMail({
             from: '"Webmaster CBT Proxy" <webmaster@cbtproxy.com>',
