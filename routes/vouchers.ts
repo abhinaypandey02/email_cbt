@@ -7,12 +7,11 @@ export const handleVouchers:RequestHandler=async (req,res)=>{
     const body = req.body
     const data = await fetch(body.url).then(res=>res.blob());
     const gif = await getProperSizedGif(Readable.fromWeb(data.stream() as ReadableStream))
-    res.sendStatus(200)
     await fetch(body.uploadURL, {
         method: "PUT",
         body: gif,
     });
-
+    res.sendStatus(200)
 }
 
 
