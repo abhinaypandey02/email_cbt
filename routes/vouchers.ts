@@ -1,12 +1,13 @@
 import {RequestHandler} from "express";
-import axios from "axios";
 import {Readable} from "node:stream";
 import ffmpeg from "fluent-ffmpeg";
 import {ReadableStream} from "node:stream/web";
 
 export const handleVouchers:RequestHandler=async (req,res)=>{
-    const {data} = await axios.get(process.env.GATSBY_STRAPI_LOCAL_ENDPOINT+':1337/api/coupons?populate=image');
-    return res.status(200).send(data)
+    const body = req.body
+    const data = await fetch(body.url).then(res=>res.blob());
+    const gif = await getProperSizedGif(Readable.fromWeb(data.stream() as ReadableStream))
+    return res.send(gif)
 }
 
 
@@ -42,11 +43,4 @@ async function getProperSizedGif(file: Readable) {
         }
     }
     return null;
-}
-
-export const handleFFMPEG:RequestHandler=async (req,res)=>{
-    const body = req.body
-    const data = await fetch(body.url).then(res=>res.blob());
-    const gif = await getProperSizedGif(Readable.fromWeb(data.stream() as ReadableStream))
-    return res.send(gif)
 }
