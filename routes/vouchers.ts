@@ -44,7 +44,7 @@ async function getProperSizedGif(file: Readable) {
         const gif = await createGif(file, currentDuration);
         if (gif) {
             const blob = new Blob([gif]);
-            if (blob.size <= 5*1024*1024) return gif;
+            if (blob.size <= 5*1024*1024) return blob;
         }
     }
     return null;
