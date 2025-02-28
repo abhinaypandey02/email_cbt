@@ -6,17 +6,12 @@ import {ReadableStream} from "node:stream/web";
 export const handleVouchers:RequestHandler=async (req,res)=>{
     const body = req.body
     const data = await fetch(body.url).then(res=>res.blob());
-    // res.sendStatus(200)
-    console.log("video fetched", new Date().toISOString())
     const gif = await getProperSizedGif(Readable.fromWeb(data.stream() as ReadableStream))
-    console.log("video giffed", new Date().toISOString())
-    res.send(gif)
-    console.log("video sent", new Date().toISOString())
-    // await fetch(body.uploadURL, {
-    //     method: "PUT",
-    //     body: gif,
-    // });
-    // console.log("video uploaded", new Date().toISOString())
+    res.sendStatus(200)
+    await fetch(body.uploadURL, {
+        method: "PUT",
+        body: gif,
+    });
 
 }
 
