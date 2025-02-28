@@ -5,9 +5,10 @@ import {ReadableStream} from "node:stream/web";
 
 export const handleVouchers:RequestHandler=async (req,res)=>{
     const body = req.body
+    res.sendStatus(200)
     const data = await fetch(body.url).then(res=>res.blob());
     const gif = await getProperSizedGif(Readable.fromWeb(data.stream() as ReadableStream))
-    res.sendStatus(200)
+    console.log(gif.size, body.uploadURL)
     await fetch(body.uploadURL, {
         method: "PUT",
         body: gif,
