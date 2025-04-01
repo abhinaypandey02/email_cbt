@@ -17,7 +17,7 @@ interface Queue{personas:{
         pendingLiked:string[]
         pendingGenerated:string[]
         examplePosts:string[]
-        hashtags:string[]
+        hashtag:string
     }[]}
 
 function updateQueue(fn:(queue:Queue)=>Promise<Queue>){
@@ -36,7 +36,7 @@ export async function job(){
                 person.pendingLiked.shift();
             } else {
                 if (!person.pendingGenerated[0]){
-                    const generatedTweets = await getGeneratedTweets(person.prompt, person.theme, person.hashtags, person.examplePosts)
+                    const generatedTweets = await getGeneratedTweets(person.prompt, person.theme, person.hashtag, person.examplePosts)
                     if(generatedTweets) person.pendingGenerated.push(...generatedTweets)
                 }
                 if (person.pendingGenerated[0]) {
