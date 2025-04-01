@@ -1,6 +1,7 @@
 import {RequestHandler} from "express";
 import * as fs from "node:fs";
 import {callIFTTTWebhook, getDeplaggedTweet, getGeneratedTweets} from "./utils";
+import path from "node:path";
 
 let flag=false;
 
@@ -17,7 +18,7 @@ interface Queue{personas:{
 
 export async function job(){
     flag=!flag
-    const json = JSON.parse(fs.readFileSync('../queue.json').toString()) as Queue;
+    const json = JSON.parse(fs.readFileSync(path.join(__dirname, '../queue.json')).toString()) as Queue;
     for(const person of json.personas){
         if(flag&&person.pendingLiked[0]){
             await callIFTTTWebhook(person.pendingLiked[0])
@@ -33,14 +34,14 @@ export async function job(){
             }
         }
     }
-    fs.writeFileSync('../queue.json',JSON.stringify(json))
+    fs.writeFileSync(path.join(__dirname, '../queue.json'),JSON.stringify(json))
 
 }
 
 export const handleLike:RequestHandler=async (req,res)=>{
     const newTweet = req.body;
     if(!newTweet)res.sendStatus(400)
-    const json = JSON.parse(fs.readFileSync('../queue.json').toString()) as Queue;
+    const json = JSON.parse(fs.readFileSync(path.join(__dirname, '../queue.json')).toString()) as Queue;
     for(const person of json.personas){
         if(person.repostLiked){
             const res = await getDeplaggedTweet(newTweet)
@@ -49,6 +50,6 @@ export const handleLike:RequestHandler=async (req,res)=>{
             }
         }
     }
-    fs.writeFileSync('../queue.json',JSON.stringify(json))
+    fs.writeFileSync(path.join(__dirname, '../queue.json'),JSON.stringify(json))
     res.sendStatus(200)
 }
