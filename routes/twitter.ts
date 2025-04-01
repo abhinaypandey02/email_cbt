@@ -50,7 +50,7 @@ export async function job(){
 }
 
 export const handleLike:RequestHandler=async (req,res)=>{
-    const newTweet = req.body;
+    const newTweet = req.body.tweet;
     if(!newTweet)res.sendStatus(400)
     updateQueue(async queue=>{
         for(const person of queue.personas){
