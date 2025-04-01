@@ -60,8 +60,8 @@ export async function getGroqResponse<T>(system: string, message?: string) {
     }
 }
 
-export async function getDeplaggedTweet(prompt:string){
-    const response = await getGroqResponse<{ data: string }>(`Deplag this tweet so that it doesn't look copied. Add the hashtags #buildinpublic #indiehacker. Use "\\n" for linebreaks. Return it in the json format {data:string}
+export async function getDeplaggedTweet(prompt:string, hashtag:string){
+    const response = await getGroqResponse<{ data: string }>(`Deplag this tweet so that it doesn't look copied. Add the hashtag #${hashtag} after two linebreakds (\\n\\n). Use "\\n" for linebreaks. Return it in the json format {data:string}
     
 ${prompt}
     `);
