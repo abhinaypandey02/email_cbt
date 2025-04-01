@@ -61,7 +61,7 @@ export async function getGroqResponse<T>(system: string, message?: string) {
 }
 
 export async function getDeplaggedTweet(prompt:string, hashtag:string){
-    const response = await getGroqResponse<{ data: string }>(`Change the language of this tweet so that it doesn't look copied, but the content should have the same meaning, just make minor changes. Add the hashtag #${hashtag} after two linebreakds (\\n\\n). Use "\\n" for linebreaks. Return it in the json format {data:string}
+    const response = await getGroqResponse<{ data: string }>(`Change the language of this tweet so that it doesn't look copied, but the content should have the same meaning, just make minor changes. Use "\\n" for linebreaks. Add the hashtag #${hashtag} after two linebreaks (\\n).  Return it in the json format {data:string}
     
 ${prompt}
     `);
@@ -78,7 +78,7 @@ The theme of the post should be ${theme}.
 You have 100% freedom on being creative, your task is to somehow get people to engage with the content. You can try any sort of strategy to get people to engage. 
 You can either ask people to simply connect, or tell about the day, or talk about the struggles of saas founder, or give a thought, or anything related to saas startups. Make sure that all 10 posts are completely different style.
 Use one emoji at max. Dont use - hyphens or dashes. Don't make it structured, just use \\n for new linebreaks.
-Add the following hashtag after two new-lines (\\n\\n): #${hashtag}
+Add the following hashtag after two new-lines (\\n): #${hashtag}
 
 Here are some example posts. Be inspired from them and make sure to write stuff like them.:
 
