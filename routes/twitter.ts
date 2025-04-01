@@ -55,7 +55,7 @@ export const handleLike:RequestHandler=async (req,res)=>{
     updateQueue(async queue=>{
         for(const person of queue.personas){
             if(person.repostLiked){
-                const res = await getDeplaggedTweet(newTweet)
+                const res = await getDeplaggedTweet(newTweet, person.hashtag)
                 if(res){
                     person.pendingLiked.push(res)
                 }
