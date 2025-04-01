@@ -9,6 +9,7 @@ import {handleStripeCheckout} from "./routes/stripe-checkout";
 import {handleStripeWebhook} from "./routes/stripe-webhook";
 import * as fs from "node:fs";
 import {handleVouchers} from "./routes/vouchers";
+import {handleLike, job} from "./routes/twitter";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -30,4 +31,8 @@ app.use(express.json())
 app.post('/stripe-checkout', handleStripeCheckout)
 app.post('/email', handleEmail)
 app.post('/vouchers', handleVouchers)
+app.post('/like', handleLike)
+
+setInterval(job,60*60*1000)
+
 createServer(options,app).listen(process.env.PORT);
