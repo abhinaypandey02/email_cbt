@@ -73,14 +73,14 @@ ${prompt}
 export async function getGeneratedTweets(prompt:string,theme:string,hashtags:string[], examplePosts:string[]){
     const response = await getGroqResponse<{ data: string[] }>(`${prompt}
 
-Generate 10 meta threads post in a json format of {data:string[]}. Make sure it tries to engage the people to comment. The style should be very casual, like a 21year old genz who knows grammar and punctuations and uses "\n" for breaking into new lines.
+Generate 10 meta threads post in a json format of {data:string[]}. Make sure it tries to engage the people to comment. The style should be casual, but do use grammar and decent punctuations like comma and strictly use "\\n" for breaking into new lines.
 The theme of the post should be ${theme}.
 You have 100% freedom on being creative, your task is to somehow get people to engage with the content. You can try any sort of strategy to get people to engage. 
 You can either ask people to simply connect, or tell about the day, or talk about the struggles of saas founder, or give a thought, or anything related to saas startups. Make sure that all 10 posts are completely different style.
-Use one emoji at max. Dont use - hyphens or dashes. Don't make it structured.
+Use one emoji at max. Dont use - hyphens or dashes. Don't make it structured, just use \\n for new linebreaks.
 Add the following hashtags ${hashtags.map(tag=>'#'+tag).join(', ')}
 
-Here are some example posts:
+Here are some example posts. Be inspired from them and make sure to write stuff like them.:
 
 ${examplePosts.map(post=>post.replaceAll('\n',`
 `)).join(`
