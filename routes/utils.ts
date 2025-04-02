@@ -99,7 +99,7 @@ export async function callIFTTTWebhook(content:string){
         {
             method: "POST",
             body: JSON.stringify({
-                content,
+                content:content.replaceAll("\n ",'\n'),
             }),
             headers: {
                 "Content-Type": "application/json",
