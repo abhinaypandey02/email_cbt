@@ -33,6 +33,6 @@ app.post('/email', handleEmail)
 app.post('/vouchers', handleVouchers)
 app.post('/like', handleLike)
 
-setInterval(job,3.33*60*60*1000)
+setInterval(job,60*60*1000)
 
 createServer(options,app).listen(process.env.PORT);

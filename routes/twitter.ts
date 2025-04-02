@@ -18,6 +18,7 @@ interface Queue{personas:{
         pendingGenerated:string[]
         examplePosts:string[]
         hashtag:string
+        frequency:number
     }[]}
 
 function updateQueue(fn:(queue:Queue)=>Promise<Queue>){
@@ -31,6 +32,7 @@ export async function job(){
     flag=!flag
     updateQueue(async queue=>{
         for(const person of queue.personas){
+            if(new Date().getUTCHours()%person.frequency!==0) continue;
             if(flag&&person.pendingLiked[0]){
                 await callIFTTTWebhook(person.pendingLiked[0])
                 person.pendingLiked.shift();
