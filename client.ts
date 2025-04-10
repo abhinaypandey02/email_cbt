@@ -5,7 +5,6 @@ const client = new Whatsapp.Client({
 });
 
 client.on('message',async msg => {
-    console.log(msg.from)
     if (msg.body.includes('form')&&msg.body.includes('https://')&&!msg.fromMe) {
         const data = await fetch('https://sociocube.com/api/handle-whatsapp',{
             method: 'POST',
@@ -16,6 +15,7 @@ client.on('message',async msg => {
             }),
         })
         const res = await data.text()
+        if(res) await client.sendMessage("919811954465c.us",res)
 
     }
 });
