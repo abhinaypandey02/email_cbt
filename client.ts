@@ -1,12 +1,7 @@
-const { Client, LocalAuth } = require('whatsapp-web.js');
+import Whatsapp from 'whatsapp-web.js'
 
-const client = new Client({
-    authStrategy: new LocalAuth()
-});
-
-client.on('qr', (qr) => {
-    // Generate and scan this code with your phone
-    console.log('QR RECEIVED', qr);
+const client = new Whatsapp.Client({
+    authStrategy: new Whatsapp.LocalAuth()
 });
 
 client.on('message', msg => {
@@ -14,5 +9,4 @@ client.on('message', msg => {
         fetch('https://sociocube.com/api/handle-whatsapp')
     }
 });
-
-client.initialize();
+client.initialize()

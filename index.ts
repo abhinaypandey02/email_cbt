@@ -9,17 +9,7 @@ import {handleStripeCheckout} from "./routes/stripe-checkout";
 import {handleStripeWebhook} from "./routes/stripe-webhook";
 import * as fs from "node:fs";
 import {handleVouchers} from "./routes/vouchers";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const options = {
-    key: fs.readFileSync(__dirname + '/private.key', 'utf8'),
-    cert: fs.readFileSync(__dirname + '/certificate.crt', 'utf8'),
-    ca: [
-        fs.readFileSync(__dirname + '/chained1.crt', 'utf8'),
-        fs.readFileSync(__dirname + '/chained2.crt', 'utf8')
-    ]
-};
+import './client'
 const app = express()
 app.use('/uploads',express.static('../cms/public/uploads'))
 app.use(cors({
@@ -32,4 +22,4 @@ app.post('/email', handleEmail)
 app.post('/vouchers', handleVouchers)
 
 
-createServer(options,app).listen(process.env.PORT);
+// createServer(options,app).listen(process.env.PORT);
