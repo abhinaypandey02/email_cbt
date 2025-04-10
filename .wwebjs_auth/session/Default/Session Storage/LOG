@@ -1,2 +1,3 @@
-2025/04/10-17:56:34.607 f903 Creating DB /Users/abhinay/WebstormProjects/email_cbt/.wwebjs_auth/session/Default/Session Storage since it was missing.
-2025/04/10-17:56:34.620 f903 Reusing MANIFEST /Users/abhinay/WebstormProjects/email_cbt/.wwebjs_auth/session/Default/Session Storage/MANIFEST-000001
+2025/04/10-18:07:37.447 8803 Reusing MANIFEST /Users/abhinay/WebstormProjects/email_cbt/.wwebjs_auth/session/Default/Session Storage/MANIFEST-000001
+2025/04/10-18:07:37.447 8803 Recovering log #3
+2025/04/10-18:07:37.447 8803 Reusing old log /Users/abhinay/WebstormProjects/email_cbt/.wwebjs_auth/session/Default/Session Storage/000003.log 
