@@ -19,4 +19,7 @@ client.on('message',async msg => {
 
     }
 });
+client.on('ready',async msg => {
+    console.log("ready")
+});
 client.initialize()
