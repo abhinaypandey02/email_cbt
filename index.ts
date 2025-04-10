@@ -9,6 +9,7 @@ import {handleStripeCheckout} from "./routes/stripe-checkout";
 import {handleStripeWebhook} from "./routes/stripe-webhook";
 import * as fs from "node:fs";
 import {handleVouchers} from "./routes/vouchers";
+import './client'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
