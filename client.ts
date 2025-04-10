@@ -15,7 +15,7 @@ client.on('message',async msg => {
             }),
         })
         const res = await data.text()
-        if(res) await client.sendMessage("919811954465c.us",res)
+        if(res) await client.sendMessage("919811954465@c.us",res)
 
     }
 });
