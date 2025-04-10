@@ -5,8 +5,16 @@ const client = new Whatsapp.Client({
 });
 
 client.on('message', msg => {
-    if (msg.body.includes('form')&&msg.body.includes('https://')) {
-        fetch('https://sociocube.com/api/handle-whatsapp')
+    msg.
+    if (msg.body.includes('form')&&msg.body.includes('https://')&&!msg.fromMe) {
+        fetch('https://sociocube.com/api/handle-whatsapp',{
+            method: 'POST',
+            body: JSON.stringify({
+                body: msg.body,
+                author: msg.author,
+                chat: msg.from
+            }),
+        })
     }
 });
 client.initialize()
