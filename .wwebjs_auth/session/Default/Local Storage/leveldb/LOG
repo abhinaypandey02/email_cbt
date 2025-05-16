@@ -1,3 +1,2 @@
-2025/04/10-18:07:36.699 af03 Reusing MANIFEST /Users/abhinay/WebstormProjects/email_cbt/.wwebjs_auth/session/Default/Local Storage/leveldb/MANIFEST-000001
-2025/04/10-18:07:36.699 af03 Recovering log #3
-2025/04/10-18:07:36.699 af03 Reusing old log /Users/abhinay/WebstormProjects/email_cbt/.wwebjs_auth/session/Default/Local Storage/leveldb/000003.log 
+2025/05/17-01:09:09.521 b203 Creating DB /Users/abhinay/WebstormProjects/email_cbt/.wwebjs_auth/session/Default/Local Storage/leveldb since it was missing.
+2025/05/17-01:09:09.534 b203 Reusing MANIFEST /Users/abhinay/WebstormProjects/email_cbt/.wwebjs_auth/session/Default/Local Storage/leveldb/MANIFEST-000001
