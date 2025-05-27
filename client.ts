@@ -17,8 +17,8 @@ setInterval(async () => {
                 chat: msg.from
             }),
         })
-        const res = await data.text()
-        if(res) await client.sendMessage("919811954465@c.us",res)
+        // const res = await data.text()
+        // if(res) await client.sendMessage("919811954465@c.us",res)
     }
 },30000)
 
