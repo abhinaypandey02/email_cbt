@@ -1,4 +1,5 @@
 import Whatsapp from 'whatsapp-web.js'
+import qrcode from 'qrcode-terminal';
 
 const queue = []
 
@@ -27,5 +28,9 @@ client.on('message',async msg => {
     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
         queue.push(msg);
     }
+});
+
+client.on('qr', qr => {
+    qrcode.generate(qr, {small: true});
 });
 client.initialize()
