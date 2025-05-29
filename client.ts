@@ -9,7 +9,7 @@ const client = new Whatsapp.Client({
 setInterval(async () => {
     const msg = queue.pop()
     if(msg){
-        const data = await fetch('https://sociocube.com/api/handle-whatsapp',{
+        await fetch('https://sociocube.com/api/handle-whatsapp',{
             method: 'POST',
             body: JSON.stringify({
                 body: msg.body,
@@ -23,7 +23,7 @@ setInterval(async () => {
 },30000)
 
 client.on('message',async msg => {
-    if (msg.body.includes('form')&&msg.body.includes('https://')&&!msg.fromMe) {
+    if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
         queue.push(msg);
     }
 });
