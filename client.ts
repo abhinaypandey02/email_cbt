@@ -23,6 +23,7 @@ setInterval(async () => {
 },30000)
 
 client.on('message',async msg => {
+    console.log(msg.body)
     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
         queue.push(msg);
     }
