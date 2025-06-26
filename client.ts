@@ -27,6 +27,7 @@ setInterval(async () => {
 
 client.on('message',async msg => {
     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
+        console.log('new msg',msg.body.split(0,10))
         queue.push(msg);
     }
 });
