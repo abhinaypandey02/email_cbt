@@ -20,14 +20,13 @@ setInterval(async () => {
         })
         if(data.status===501) {
             const res = await data.text()
-            await client.sendMessage("919811954465@c.us", res)
+            console.error(res)
         }
     }
 },30000)
 
 client.on('message',async msg => {
     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
-        console.log('new msg',msg.body.split(0,10))
         queue.push(msg);
     }
 });
@@ -38,6 +37,5 @@ client.on('qr', qr => {
 client.on('ready', () => {
     console.log('ready')
 });
-client.initialize().then(()=>{
-    console.log('init')
-})
+
+client.initialize()
