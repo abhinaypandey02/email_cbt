@@ -2,7 +2,7 @@ import Whatsapp from 'whatsapp-web.js'
 import qrcode from 'qrcode-terminal';
 
 const queue = []
-const threads = []
+const threads:string[] = []
 
 const client = new Whatsapp.Client({
     authStrategy: new Whatsapp.LocalAuth()
@@ -20,10 +20,12 @@ setInterval(async () => {
             }),
         })
         const res = await data.text()
-        if(data.status===501) {
-            console.error(res)
-        } else {
+
+        if(data.status===200) {
             threads.push(res)
+            // await client.sendMessage('',res)
+        } else {
+            console.error(res)
         }
     }
 },30000)
@@ -31,7 +33,15 @@ setInterval(async () => {
 setInterval(async () => {
     const msg = threads.pop()
     if(msg){
-        const data = await fetch('https://sociocube.com/api/handle-threads?id='+msg)
+        const data = await fetch('https://sociocube.com/api/handle-threads',{
+            method: 'POST',
+            body:JSON.stringify({
+                thread:[
+                    msg.split('\n').slice(0,-1).join('\n'),
+                    msg.split('\n').at(-1),
+                ],
+            })
+        })
         if(data.status===501) {
             const res = await data.text()
             console.error(res)
@@ -48,7 +58,9 @@ client.on('message',async msg => {
 client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
 });
-client.on('ready', () => {
+client.on('ready', async () => {
+    const channel = await client.getChannelByInviteCode('0029VaywINd9WtByQLkio206');
+    console.log(channel.id.user, channel.id.server)
     console.log('ready')
 });
 
