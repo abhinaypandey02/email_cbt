@@ -1,4 +1,4 @@
-import Whatsapp from 'whatsapp-web.js'
+import Whatsapp, {Channel} from 'whatsapp-web.js'
 import qrcode from 'qrcode-terminal';
 
 const queue = []
@@ -7,6 +7,8 @@ const threads:string[] = []
 const client = new Whatsapp.Client({
     authStrategy: new Whatsapp.LocalAuth()
 });
+
+let IndiaChannel:Channel, GlobalChannel:Channel;
 
 setInterval(async () => {
     const msg = queue.pop()
@@ -23,9 +25,9 @@ setInterval(async () => {
 
         if(data.status===200) {
             threads.push(res)
-            await client.sendMessage('120363394006649454',res)
+            await IndiaChannel.sendMessage(res)
             if(!res.includes('India')){
-                await client.sendMessage('120363417151454432',res)
+                await GlobalChannel.sendMessage(res)
             }
         } else {
             console.error(res)
@@ -62,6 +64,9 @@ client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
 });
 client.on('ready', async () => {
+    IndiaChannel = await client.getChannelByInviteCode('0029VaywINd9WtByQLkio206');
+    GlobalChannel = await client.getChannelByInviteCode('0029VbAfFEdJZg444GK17n1M');
+
     console.log('ready')
 });
 
