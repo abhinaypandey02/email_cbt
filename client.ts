@@ -23,7 +23,10 @@ setInterval(async () => {
 
         if(data.status===200) {
             threads.push(res)
-            // await client.sendMessage('',res)
+            await client.sendMessage('120363394006649454',res)
+            if(!res.includes('India')){
+                await client.sendMessage('120363394006649454',res)
+            }
         } else {
             console.error(res)
         }
@@ -59,7 +62,7 @@ client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
 });
 client.on('ready', async () => {
-    const channel = await client.getChannelByInviteCode('0029VaywINd9WtByQLkio206');
+    const channel = await client.getChannelByInviteCode('0029VbAfFEdJZg444GK17n1M');
     console.log(channel.id.user, channel.id.server)
     console.log('ready')
 });
