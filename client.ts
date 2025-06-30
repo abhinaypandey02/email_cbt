@@ -45,7 +45,8 @@ setInterval(async () => {
                     msg.split('\n').slice(0,-1).join('\n'),
                     msg.split('\n').at(-1),
                 ],
-            })
+                token: "dsfjbn13r4tdnlnjkfj1243vdfbjkn123r4ebfjsdfvef"
+            }),
         })
         if(data.status===501) {
             const res = await data.text()
