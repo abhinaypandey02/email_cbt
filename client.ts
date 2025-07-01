@@ -53,7 +53,7 @@ setInterval(async () => {
             console.error(res)
         }
     }
-},60000*60)
+},60000*120)
 
 client.on('message',async msg => {
     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
