@@ -42,7 +42,7 @@ setInterval(async () => {
             method: 'POST',
             body:JSON.stringify({
                 thread:[
-                    msg.split('\n').slice(0,-1).join('\n'),
+                    [...msg.split('\n').slice(0,-1), 'Apply now from pinned comment 👇'].join('\n'),
                     msg.split('\n').at(-1),
                 ],
                 token: "dsfjbn13r4tdnlnjkfj1243vdfbjkn123r4ebfjsdfvef"
@@ -53,7 +53,7 @@ setInterval(async () => {
             console.error(res)
         }
     }
-},60000*120)
+},60000*60)
 
 client.on('message',async msg => {
     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
