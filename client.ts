@@ -22,7 +22,7 @@ setInterval(async () => {
     })
     const { nextPost, error } = await data.json()
 
-    if(data.status===200) {
+    if(nextPost) {
         await IndiaChannel.sendMessage(nextPost)
         if(!nextPost.includes('India')){
             await GlobalChannel.sendMessage(nextPost)
