@@ -42,6 +42,9 @@ client.on('message',async msg => {
 client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
 });
+client.on('auth_failure', qr => {
+    console.log("auth failure");
+});
 client.on('ready', async () => {
     IndiaChannel = await client.getChannelByInviteCode('0029VaywINd9WtByQLkio206');
     GlobalChannel = await client.getChannelByInviteCode('0029VbAfFEdJZg444GK17n1M');
