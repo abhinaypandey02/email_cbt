@@ -2,8 +2,11 @@ import Whatsapp, {Channel} from 'whatsapp-web.js'
 import qrcode from 'qrcode-terminal';
 import * as fs from "node:fs";
 import path from "node:path";
+import {fileURLToPath} from "url";
 
 const queue = []
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const client = new Whatsapp.Client({
     authStrategy: new Whatsapp.LocalAuth()
@@ -53,7 +56,7 @@ client.on('ready', async () => {
 });
 
 client.initialize().catch(err => {
-    console.log("ERROR")
+    console.log(__dirname)
     fs.rmSync(path.join(__dirname, '.wwebjs_auth'), { recursive: true, force: true });
     fs.rmSync(path.join(__dirname, '.wwebjs_cache'), { recursive: true, force: true });
 });
