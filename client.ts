@@ -1,5 +1,7 @@
 import Whatsapp, {Channel} from 'whatsapp-web.js'
 import qrcode from 'qrcode-terminal';
+import * as fs from "node:fs";
+import path from "node:path";
 
 const queue = []
 
@@ -23,7 +25,7 @@ setInterval(async () => {
             await GlobalChannel.sendMessage(nextPost)
         }
     } else {
-        console.error(error)
+        console.error(error, new Date().toLocaleString())
     }
 },60000*2)
 
@@ -47,4 +49,8 @@ client.on('ready', async () => {
     console.log('ready')
 });
 
-client.initialize()
+client.initialize().catch(err => {
+    console.log("ERROR")
+    fs.rmSync(path.join(__dirname, '.wwebjs_auth'), { recursive: true, force: true });
+    fs.rmSync(path.join(__dirname, '.wwebjs_cache'), { recursive: true, force: true });
+});
