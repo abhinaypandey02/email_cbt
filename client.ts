@@ -18,7 +18,7 @@ setInterval(async () => {
     const msg = queue.pop()
     const data = await fetch('https://sociocube.com/api/handle-whatsapp',{
         method: 'POST',
-        body: msg || "{}",
+        body: msg || "",
     })
     const { nextPost, error } = await data.json()
 
