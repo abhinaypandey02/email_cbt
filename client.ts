@@ -27,7 +27,7 @@ setInterval(async () => {
         if(!nextPost.includes('India')){
             await GlobalChannel.sendMessage(nextPost)
         }
-    } else {
+    } else if(error) {
         console.error(error, new Date().toLocaleString())
     }
 },60000*2)
