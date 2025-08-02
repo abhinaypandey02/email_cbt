@@ -16,10 +16,7 @@ const __dirname = dirname(__filename);
 const options = {
     key: fs.readFileSync(__dirname + '/private.key', 'utf8'),
     cert: fs.readFileSync(__dirname + '/certificate.crt', 'utf8'),
-    ca: [
-        fs.readFileSync(__dirname + '/chained1.crt', 'utf8'),
-        fs.readFileSync(__dirname + '/chained2.crt', 'utf8')
-    ]
+    ca: fs.readFileSync(__dirname + '/ca.ca-bundle', 'utf8')
 };
 const app = express()
 app.use('/uploads',express.static('../cms/public/uploads'))
