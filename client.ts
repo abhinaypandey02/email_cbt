@@ -32,9 +32,10 @@ setInterval(async () => {
     }
 },60000*2)
 
-// setInterval(() => {
-//     fetch('https://sociocube.com/api/handle-threads')
-// },60000*60*(3+Math.random()))
+setInterval(() => {
+    const number = Math.random()
+    if(number>0.5) fetch('https://sociocube.com/api/handle-threads')
+},60000*60*5)
 
 client.on('message',async msg => {
     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
