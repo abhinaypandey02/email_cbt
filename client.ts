@@ -39,6 +39,7 @@ setInterval(() => {
 },60000*60*5)
 
 client.on('message',async msg => {
+    console.log(msg)
     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
         console.log("Pushing to queue: ", msg.body.slice(0,20), new Date().toLocaleString())
         queue.push(msg.body);
