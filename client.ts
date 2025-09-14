@@ -57,7 +57,8 @@ client.on('ready', async () => {
     console.log('ready')
 });
 
-client.initialize().catch(err => {
+client.initialize().then(err => {
+    console.log("CLEARING")
     fs.rmSync(path.join(__dirname, '.wwebjs_auth'), { recursive: true, force: true });
     fs.rmSync(path.join(__dirname, '.wwebjs_cache'), { recursive: true, force: true });
     client.resetState()
