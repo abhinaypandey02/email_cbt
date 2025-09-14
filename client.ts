@@ -40,6 +40,7 @@ setInterval(() => {
 
 client.on('message',async msg => {
     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
+        console.log("Pushing to queue: ", msg.body.slice(0,20), new Date().toLocaleString())
         queue.push(msg.body);
     }
 });
@@ -47,9 +48,7 @@ client.on('message',async msg => {
 client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
 });
-client.on('auth_failure', qr => {
-    console.log("auth failure");
-});
+
 client.on('ready', async () => {
     IndiaChannel = await client.getChannelByInviteCode('0029VaywINd9WtByQLkio206');
     GlobalChannel = await client.getChannelByInviteCode('0029VbAfFEdJZg444GK17n1M');
