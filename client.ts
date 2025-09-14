@@ -16,6 +16,7 @@ let IndiaChannel:Channel, GlobalChannel:Channel;
 
 setInterval(async () => {
     const msg = queue.pop()
+    if(msg) console.log("Popping from queue: ", msg.slice(0,20), new Date().toLocaleString())
     const data = await fetch('https://sociocube.com/api/handle-whatsapp',{
         method: 'POST',
         body: msg || "",
@@ -30,7 +31,7 @@ setInterval(async () => {
     } else if(error) {
         console.error(error, new Date().toLocaleString())
     }
-},60000*2)
+},60000)
 
 setInterval(() => {
     const number = Math.random()
