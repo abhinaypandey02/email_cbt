@@ -17,7 +17,7 @@ let IndiaChannel:Channel, GlobalChannel:Channel;
 setInterval(async () => {
     const msg = queue.pop()
     if(msg) console.log("Processing: ", msg.slice(0,50), new Date().toLocaleString())
-    const data = await fetch('https://sociocube-dev.netlify.app/api/handle-whatsapp',{
+    const data = await fetch('https://sociocube.com/api/handle-whatsapp',{
         method: 'POST',
         body: msg || "",
     })
@@ -27,14 +27,13 @@ setInterval(async () => {
         console.log("posting", nextPost.slice(0,50))
 
         const res = await IndiaChannel.sendMessage(nextPost)
-        console.log(res)
         if(!nextPost.includes('India')){
             await GlobalChannel.sendMessage(nextPost)
         }
     } else if(error) {
         console.log(error, new Date().toLocaleString())
     }
-},60000)
+},300000)
 
 client.on('message',async msg => {
     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
