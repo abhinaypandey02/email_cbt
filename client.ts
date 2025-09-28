@@ -26,7 +26,8 @@ setInterval(async () => {
     if(nextPost) {
         console.log("posting", nextPost.slice(0,50))
 
-        await IndiaChannel.sendMessage(nextPost)
+        const res = await IndiaChannel.sendMessage(nextPost)
+        console.log(res)
         if(!nextPost.includes('India')){
             await GlobalChannel.sendMessage(nextPost)
         }
