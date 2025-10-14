@@ -36,12 +36,12 @@ setInterval(async () => {
     }
 },300000)
 
-client.on('message',async msg => {
-    if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
-        console.log("Received: ", msg.body.slice(0,50), new Date().toLocaleString())
-        queue.push(msg.body);
-    }
-});
+// client.on('message',async msg => {
+//     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
+//         console.log("Received: ", msg.body.slice(0,50), new Date().toLocaleString())
+//         queue.push(msg.body);
+//     }
+// });
 
 client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
