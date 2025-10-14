@@ -10,6 +10,7 @@ import {handleStripeWebhook} from "./routes/stripe-webhook";
 import * as fs from "node:fs";
 import {handleVouchers} from "./routes/vouchers";
 import './client'
+import {handleWhatsapp} from "./client";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -28,6 +29,7 @@ app.use(express.json())
 app.post('/stripe-checkout', handleStripeCheckout)
 app.post('/email', handleEmail)
 app.post('/vouchers', handleVouchers)
+app.post('/whatsapp', handleWhatsapp)
 
 
 createServer(options,app).listen(process.env.PORT);

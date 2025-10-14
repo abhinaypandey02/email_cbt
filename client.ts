@@ -3,6 +3,7 @@ import qrcode from 'qrcode-terminal';
 import * as fs from "node:fs";
 import path from "node:path";
 import {fileURLToPath} from "url";
+import {RequestHandler} from "express";
 
 const queue = []
 const __filename = fileURLToPath(import.meta.url);
@@ -58,3 +59,12 @@ client.initialize().catch(err => {
     fs.rmSync(path.join(__dirname, '.wwebjs_cache'), { recursive: true, force: true });
     client.resetState()
 });
+
+
+export const handleWhatsapp:RequestHandler=async (req,res)=>{
+    const body = req.body
+    const channel = await client.getChannelByInviteCode(body.channel)
+    await channel.sendMessage(body.message)
+    return res.sendStatus(200)
+}
+
