@@ -1,11 +1,10 @@
-import Whatsapp, {Channel} from 'whatsapp-web.js'
+import Whatsapp from 'whatsapp-web.js'
 import qrcode from 'qrcode-terminal';
 import * as fs from "node:fs";
 import path from "node:path";
 import {fileURLToPath} from "url";
 import {RequestHandler} from "express";
 
-const queue = []
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -13,45 +12,9 @@ const client = new Whatsapp.Client({
     authStrategy: new Whatsapp.LocalAuth()
 });
 
-let IndiaChannel:Channel, GlobalChannel:Channel;
-
-setInterval(async () => {
-    const msg = queue.pop()
-    if(msg) console.log("Processing: ", msg.slice(0,50), new Date().toLocaleString())
-    const data = await fetch('https://sociocube.com/api/handle-whatsapp',{
-        method: 'POST',
-        body: msg || "",
-    })
-    const { nextPost, error } = await data.json()
-
-    if(nextPost) {
-        console.log("posting", nextPost.slice(0,50))
-
-        const res = await IndiaChannel.sendMessage(nextPost)
-        if(!nextPost.includes('India')){
-            await GlobalChannel.sendMessage(nextPost)
-        }
-    } else if(error) {
-        console.log(error, new Date().toLocaleString())
-    }
-},300000)
-
-// client.on('message',async msg => {
-//     if (msg.body.includes('forms')&&msg.body.includes('https://')&&!msg.fromMe) {
-//         console.log("Received: ", msg.body.slice(0,50), new Date().toLocaleString())
-//         queue.push(msg.body);
-//     }
-// });
 
 client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
-});
-
-client.on('ready', async () => {
-    IndiaChannel = await client.getChannelByInviteCode('0029VaywINd9WtByQLkio206');
-    GlobalChannel = await client.getChannelByInviteCode('0029VbAfFEdJZg444GK17n1M');
-
-    console.log('ready')
 });
 
 client.initialize().catch(err => {
